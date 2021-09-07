@@ -69,10 +69,17 @@ finally:
 
 
 #Now lets get the name of every Material to Collect
-
-materialTable = driver.find_element_by_class_name("lessfade")
+materialTable = driver.find_element_by_tag_name("tbody")
 matTableNumRow = len (driver.find_elements_by_xpath("/html/body/table/tbody/tr[2]/td/form/table[2]/tbody/tr"))
-print(matTableNumRow)
+#print(matTableNumRow)
+#This is really ugly and the names are wrong
+rows = materialTable.find_elements(By.XPATH, "/html/body/table/tbody/tr[2]/td/form/table[2]/tbody") # get all of the rows in the table
+for row in rows:
+	#Get Columns
+	dataset = row.find_elements(By.TAG_NAME, "tr") # index starts from 0 so 1 is column 2
+	for data in dataset:
+		data = print(data.text)
+
 
 #After we get all the info we need, lets close the browser
 #driver.quit()
