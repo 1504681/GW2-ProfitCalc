@@ -71,8 +71,8 @@ finally:
 #Now lets get the name of every Material to Collect
 
 materialTable = driver.find_element_by_class_name("lessfade")
-matTableNumCol = len (driver.find_elements_by_xpath("/html/body/table/tbody/tr[2]/td/form/table[2]/tbody/tr[1]"))
-print(matTableNumCol)
+matTableNumRow = len (driver.find_elements_by_xpath("/html/body/table/tbody/tr[2]/td/form/table[2]/tbody/tr"))
+print(matTableNumRow)
 
 #After we get all the info we need, lets close the browser
 #driver.quit()
