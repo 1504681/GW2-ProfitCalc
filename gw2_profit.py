@@ -15,29 +15,61 @@ driver.get("http://www.gw2profits.com/craft_everything.php")
 
 
 #Lets declare variables.
-#What are my skills?
-chef = True
+
+#What professions do I have?
+weaponsmith = True
+huntsman = True
+artificer = False
+armorsmith = False
+leatherworker = True
 tailor = False
+jewler = True
+chef = True
+scribe = True
+other = True
+
+
 #What are my gold values?
 
 TotalGold = 70
-GoldToSpend = TotalGold * 0.8
+GoldToSpend = TotalGold * 0.8 #So we have enough money leftover to re-list items
 GoldPerHour = GoldToSpend / 12
-DaysWorth = 0.3
+DaysWorth = 1 #Get all the materials you need to max out daily
 
+#Minimum Profit (in Copper)
+MinProfit = 150 # 1 Silver 50 copper
+MinPercentProfit = 10
+MinVelocity = 10 #Velocity is roughly the amount of time an item is traded per day, higher velocity = quicker trades
 
 #Included Disciplines
 
-#Chef
-chefBox = driver.find_element_by_name("Chef")
-'''
-if chef:
-	if chefBox.value
-	chefbox.click
-'''
+def JobTicked(job, string):
+	box = driver.find_element_by_name(string)
+	if job:
+		if not box.is_selected():
+			box.click()
+	if not job:
+		if box.is_selected():
+			box.click()
 
+#Check all jobs and tick box if have job and box not ticked
+try:
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "lessfade"))
+    )
+finally:
+    a = 1 + 1
+JobTicked(weaponsmith,"Weaponsmith")
+JobTicked(artificer,"Artificer")
+JobTicked(armorsmith,"Armorsmith")
+JobTicked(leatherworker,"Leatherworker")
+JobTicked(tailor,"Tailor")
+JobTicked(jewler,"Jeweler")
+JobTicked(chef,"Chef")
+JobTicked(scribe,"Scribe")
+JobTicked(other,"Other")
 
-
+#This is really ugly I will put this in a function later
 #Lets get the AmountToMake x Day's Worth Textbox
 amountBox = driver.find_element_by_name("amount")
 amountBox.clear()
@@ -53,6 +85,15 @@ min_g_hBox = driver.find_element_by_name("min_g_hr")
 min_g_hBox.clear()
 min_g_hBox.send_keys(str(GoldPerHour))
 
+#Max Gold to Spend
+min_g_hBox = driver.find_element_by_name("min_g_hr")
+min_g_hBox.clear()
+min_g_hBox.send_keys(str(GoldPerHour))
+
+#Max Gold to Spend
+min_g_hBox = driver.find_element_by_name("min_g_hr")
+min_g_hBox.clear()
+min_g_hBox.send_keys(str(GoldPerHour))
 
 
 #The form is filled out, lets hit the Update Settings button
@@ -72,13 +113,13 @@ finally:
 materialTable = driver.find_element_by_tag_name("tbody")
 matTableNumRow = len (driver.find_elements_by_xpath("/html/body/table/tbody/tr[2]/td/form/table[2]/tbody/tr"))
 #print(matTableNumRow)
-#This is really ugly and the names are wrong
 rows = materialTable.find_elements(By.XPATH, "/html/body/table/tbody/tr[2]/td/form/table[2]/tbody") # get all of the rows in the table
 for row in rows:
 	#Get Columns
-	dataset = row.find_elements(By.TAG_NAME, "tr") # index starts from 0 so 1 is column 2
+	dataset = row.find_elements(By.TAG_NAME, "tr")
 	for data in dataset:
 		data = print(data.text)
+		print("======================") #Seperate data with a divider
 
 
 #After we get all the info we need, lets close the browser
