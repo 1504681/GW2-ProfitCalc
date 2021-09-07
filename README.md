@@ -12,5 +12,7 @@
  # Requirements 
  
  Python
+ 
  Selenium
+ 
  [Chromedriver](https://chromedriver.chromium.org/downloads) or a webdriver for any other web-browser.
