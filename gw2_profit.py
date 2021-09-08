@@ -23,7 +23,7 @@ artificer = False
 armorsmith = False
 leatherworker = True
 tailor = False
-jewler = True
+jeweler = True
 chef = True
 scribe = True
 other = True
@@ -64,36 +64,23 @@ JobTicked(artificer,"Artificer")
 JobTicked(armorsmith,"Armorsmith")
 JobTicked(leatherworker,"Leatherworker")
 JobTicked(tailor,"Tailor")
-JobTicked(jewler,"Jeweler")
+JobTicked(jeweler,"Jeweler")
 JobTicked(chef,"Chef")
 JobTicked(scribe,"Scribe")
 JobTicked(other,"Other")
 
-#This is really ugly I will put this in a function later
-#Lets get the AmountToMake x Day's Worth Textbox
-amountBox = driver.find_element_by_name("amount")
-amountBox.clear()
-amountBox.send_keys(str(DaysWorth))
+#ChangeTextBoxFunction
+def ChangeBox(elementname, var):
+	box = driver.find_element_by_name(elementname)
+	box.clear()
+	box.send_keys(str(var))
 
-#Max Gold to Spend
-max_goldBox = driver.find_element_by_name("max_gold")
-max_goldBox.clear()
-max_goldBox.send_keys(str(GoldToSpend))
-
-#Max Gold to Spend
-min_g_hBox = driver.find_element_by_name("min_g_hr")
-min_g_hBox.clear()
-min_g_hBox.send_keys(str(GoldPerHour))
-
-#Max Gold to Spend
-min_g_hBox = driver.find_element_by_name("min_g_hr")
-min_g_hBox.clear()
-min_g_hBox.send_keys(str(GoldPerHour))
-
-#Max Gold to Spend
-min_g_hBox = driver.find_element_by_name("min_g_hr")
-min_g_hBox.clear()
-min_g_hBox.send_keys(str(GoldPerHour))
+ChangeBox("amount",DaysWorth)
+ChangeBox("max_gold",GoldToSpend)
+ChangeBox("min_g_hr",GoldPerHour)
+ChangeBox("minimum_limit",MinProfit)
+ChangeBox("percent_limit",MinPercentProfit)
+ChangeBox("velocity_limit",MinVelocity)
 
 
 #The form is filled out, lets hit the Update Settings button
