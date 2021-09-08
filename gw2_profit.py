@@ -101,12 +101,23 @@ materialTable = driver.find_element_by_tag_name("tbody")
 matTableNumRow = len (driver.find_elements_by_xpath("/html/body/table/tbody/tr[2]/td/form/table[2]/tbody/tr"))
 #print(matTableNumRow)
 rows = materialTable.find_elements(By.XPATH, "/html/body/table/tbody/tr[2]/td/form/table[2]/tbody") # get all of the rows in the table
+
 for row in rows:
-	#Get Columns
+	#Get Rows
 	dataset = row.find_elements(By.TAG_NAME, "tr")
 	for data in dataset:
-		data = print(data.text)
-		print("======================") #Seperate data with a divider
+		itemnames = data.find_elements(By.TAG_NAME, "a")
+		for itemname in itemnames:
+			name = itemname.text
+			print(itemname.text)
+			print("======================") #Seperate data with a divider
+		'''
+		amounts = data.find_elements(By.TAG_NAME, "br")
+		for amount in amounts:
+			quantity = amount.text
+			print("We need "+quantity+".") #Seperate data with a divider
+		'''
+		
 
 
 #After we get all the info we need, lets close the browser
